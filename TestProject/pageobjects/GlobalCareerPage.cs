@@ -32,10 +32,11 @@ namespace TestProject.pageobjects
            return pageText;
         }
 
-        public void clickSouthAfrica()
+        public SouthAfricaCareerPage clickSouthAfrica()
         {
             southAfrica.Click();
-        }
+            return new SouthAfricaCareerPage(driver);
+        } 
 
         public void scrollToSouthAfrica()
         {
