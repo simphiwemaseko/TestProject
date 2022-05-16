@@ -4,8 +4,6 @@ using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestProject.pageobjects;
 
 namespace TestProject.tests
@@ -14,11 +12,11 @@ namespace TestProject.tests
     {
 
 
-        [Test]
-
-        public void JobApplicationTest()
+        [Test, TestCaseSource("AddTestDataConfig")]
+        
+        public void JobApplicationTest(string name, string email, string[] expectedJobs)
         {
-            String[] expectedJobs = { "Interns - BSC Computer Science, National Diploma: IT Development Graduates" };
+            //String[] expectedJobs = { "Interns - BSC Computer Science, National Diploma: IT Development Graduates" };
             LandingPage landingPage = new LandingPage(getDriver());
             landingPage.waitForBannerDisplay();
             string expectedBanner = landingPage.getBanner().Text;
@@ -61,7 +59,7 @@ namespace TestProject.tests
             string contact = number.Insert(3, " ");
             string phone = contact.Remove(8);
 
-            jobApplicationPage.applicantDetails("Simphiwe", "automationAssessment@iLABQuality.com","083" +" "+ phone);
+            jobApplicationPage.applicantDetails(name, email,"083" +" "+ phone);
             jobApplicationPage.scrollToSubmitApplication();
             jobApplicationPage.clickSendApplication();
             jobApplicationPage.waitForApplicationErrorDisplay();
@@ -72,5 +70,11 @@ namespace TestProject.tests
 
         }
 
+        public static IEnumerable<TestCaseData> AddTestDataConfig()
+        {
+            yield return new TestCaseData(getDataParser().extractData("name"),
+            getDataParser().extractData("email"),getDataParser().extractDataArray("jobs"));
+                
+        }
     }
 }
