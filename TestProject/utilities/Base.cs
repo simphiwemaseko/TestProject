@@ -53,7 +53,7 @@ namespace CsharpSelFramework.Utilities
              
 
             InitBrowser(browserName);
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(8);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             driver.Manage().Window.Maximize();
             driver.Url = "https://www.ilabquality.com/";
         }
